@@ -3,7 +3,7 @@
 ## users テーブル
 
 | Column             | Type   | Options                   |
-| ------------------ | ------ | ------------------------- |
+| ------------------ | ------ | ------------------------  |
 | nickname           | string | null: false               |
 | email              | string | null: false, unique: true |
 | encrypted_password | string | null: false               |
@@ -21,7 +21,7 @@
 ## items テーブル
 
 | Column                 | Type       | Options                        |
-|------------------------|------------|--------------------------------|
+|------------------------|------------|------------------------------- |
 | name                   | string     | null: false                    |
 | price                  | integer    | null: false                    |
 | description            | text       | null: false                    |
@@ -40,7 +40,7 @@
 ## ordersテーブル
 
 | Column  | Type       | Options                        |
-| ------- | ---------- | ------------------------------ |
+| ------- | ---------- | -----------------------------  |
 | user    | references | null: false, foreign_key: true |
 | item    | references | null: false, foreign_key: true |
 
@@ -54,7 +54,7 @@
 ## shipping_addresses テーブル
 
 | Column        | Type       | Options                        |
-| ------------- | ---------- | ------------------------------ |
+| ------------- | ---------- | -----------------------------  |
 | order         | references | null: false, foreign_key: true |
 | postal_code   | string     | null: false                    |
 | prefecture_id | integer    | null: false                    |
