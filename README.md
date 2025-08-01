@@ -1,9 +1,6 @@
-# temporary: 再レビューのため一時的に再コミットしています
-
 # テーブル設計  
 
-## users テーブル
-
+## users テーブル（ユーザー情報）
 | Column             | Type   | Options                   |
 | ------------------ | ------ | ------------------------  |
 | nickname           | string | null: false               |
@@ -16,12 +13,10 @@
 | birth_date         | date   | null: false               |
 
 ### Association
-
 - has_many :items
 - has_many :orders
 
-## items テーブル
-
+## items テーブル（商品情報）
 | Column                 | Type       | Options                        |
 |------------------------|------------|------------------------------- |
 | name                   | string     | null: false                    |
@@ -35,26 +30,27 @@
 | shipping_day_id        | integer    | null: false                    |
 
 ### Association
-
 - has_one :order
 - belongs_to :user
+- belongs_to_active_hash :category
+- belongs_to_active_hash :condition
+- belongs_to_active_hash :shipping_fee_burden
+- belongs_to_active_hash :prefecture
+- belongs_to_active_hash :shipping_day
 
-## ordersテーブル
-
+## orders テーブル（購入情報）
 | Column  | Type       | Options                        |
 | ------- | ---------- | -----------------------------  |
 | user    | references | null: false, foreign_key: true |
 | item    | references | null: false, foreign_key: true |
 
 ### Association
-
 - belongs_to :user
 - belongs_to :item
 - has_one :shipping_address
 
 
-## shipping_addresses テーブル
-
+## shipping_addresses テーブル（配送先情報）
 | Column        | Type       | Options                        |
 | ------------- | ---------- | -----------------------------  |
 | order         | references | null: false, foreign_key: true |
@@ -67,7 +63,5 @@
 
 
 ### Association
-
 - belongs_to :order
-
-# temporary: 再レビューのため一時的に再コミットしています
+- belongs_to_active_hash :prefecture
