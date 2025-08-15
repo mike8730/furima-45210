@@ -7,11 +7,11 @@ class Item < ApplicationRecord
                                     greater_than_or_equal_to: 300,
                                     less_than_or_equal_to: 9_999_999 }
   validates :description, presence: true
-  validates :category_id, presence: true, numericality: {other_than: 1}
-  validates :condition_id, presence: true, numericality: {other_than: 1}
-  validates :shipping_fee_burden_id, presence: true, numericality: {other_than: 1}
-  validates :prefecture_id, presence: true, numericality: {other_than: 1}
-  validates :shipping_day_id, presence: true, numericality: {other_than: 1}
+  validates :category_id, presence: true, numericality: { other_than: 1 }
+  validates :condition_id, presence: true, numericality: { other_than: 1 }
+  validates :shipping_fee_burden_id, presence: true, numericality: { other_than: 1 }
+  validates :prefecture_id, presence: true, numericality: { other_than: 1 }
+  validates :shipping_day_id, presence: true, numericality: { other_than: 1 }
   validates :image, presence: true
 
   belongs_to :user
@@ -23,4 +23,3 @@ class Item < ApplicationRecord
   belongs_to :prefecture
   belongs_to :shipping_day
 end
-
