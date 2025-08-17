@@ -121,7 +121,6 @@
       <% if @items.any? %>
          <% @items.each do |item| %>
            <li class="list">
-           <%# 商品詳細ページへのリンクはここで指定 %>
              <%= link_to item_path(item) do %>
                <div class="item-img-content">
                  <%= image_tag item.image, class: "item-img" %>
