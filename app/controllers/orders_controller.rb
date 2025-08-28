@@ -4,14 +4,15 @@ class OrdersController < ApplicationController
 
   def index
     @order_shipping = OrderShipping.new
+    gon.public_key = ENV['PAYJP_PUBLIC_KEY'] 
   end
 
   def create
     @order_shipping = OrderShipping.new(order_shipping_params)
     if @order_shipping.valid?
-      pay_item  
+      pay_item
       @order_shipping.save
-      redirect_to root_path
+      redirect_to root_path, notice: "購入が完了しました"
     else
       render :index, status: :unprocessable_entity
     end
@@ -29,7 +30,7 @@ class OrdersController < ApplicationController
   end
 
   def pay_item
-    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+    Payjp.api_key = ENV['PAYJP_SECRET_KEY'] 
     Payjp::Charge.create(
       amount: @item.price,
       card: order_shipping_params[:token],

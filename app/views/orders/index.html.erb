@@ -26,6 +26,8 @@
         ¥<%= @item.price %>
       </p>
     </div>
+    
+    <%= render 'shared/error_messages', model: @order_shipping %>
 
     <%= form_with model: @order_shipping, url: item_orders_path(@item), id: 'charge-form', class: 'transaction-form-wrap', local: true do |f| %>
     <div class='credit-card-form'>
