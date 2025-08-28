@@ -4,17 +4,7 @@ RSpec.describe OrderShipping, type: :model do
   before do
     @user = FactoryBot.create(:user)
     @item = FactoryBot.create(:item)
-    @order_shipping = OrderShipping.new(
-      user_id: @user.id,
-      item_id: @item.id,
-      postal_code: "123-4567",
-      prefecture_id: 2,
-      city: "横浜市",
-      address: "青葉区1-1-1",
-      building: "柳ビル103",
-      phone_number: "09012345678",
-      token: "tok_abcdefghijk00000000000000000"
-    )
+    @order_shipping = FactoryBot.build(:order_shipping, user_id: @user.id, item_id: @item.id)
   end
 
   describe '購入情報の保存' do
