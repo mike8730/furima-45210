@@ -1,6 +1,7 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_item
+  before_action :move_to_root, only: [:index, :create]
 
   def index
     @order_shipping = OrderShipping.new
@@ -36,5 +37,11 @@ class OrdersController < ApplicationController
       card: order_shipping_params[:token],
       currency: 'jpy'
     )
+  end
+
+  def move_to_root
+    if @item.user.id == current_user.id || @item.order.present?
+      redirect_to root_path
+    end
   end
 end
