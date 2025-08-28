@@ -16,10 +16,10 @@ class Item < ApplicationRecord
 
   belongs_to :user
   has_one_attached :image
-
-  belongs_to :category
-  belongs_to :condition
-  belongs_to :shipping_fee_burden
-  belongs_to :prefecture
-  belongs_to :shipping_day
+  has_one :order
+  belongs_to_active_hash :category
+  belongs_to_active_hash :condition
+  belongs_to_active_hash :shipping_fee_burden
+  belongs_to_active_hash :prefecture
+  belongs_to_active_hash :shipping_day
 end
