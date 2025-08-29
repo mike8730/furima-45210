@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update]
   before_action :move_to_root, only: [:edit, :update]
 
   def index
@@ -24,9 +24,16 @@ class ItemsController < ApplicationController
   end
 
   def edit
+    @item = Item.find(params[:id])
   end
 
   def update
+    @item = Item.find(params[:id])
+    if @item.update(item_params)
+      redirect_to item_path(@item)
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   private
@@ -38,7 +45,7 @@ class ItemsController < ApplicationController
 
   def move_to_root
     @item = Item.find(params[:id])
-    if @item.order.present?
+    if @item.order.present? || @item.user.id != current_user.id
       redirect_to root_path
     end
   end
