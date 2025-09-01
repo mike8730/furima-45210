@@ -16,16 +16,17 @@ const pay = () => {
     e.preventDefault();
     payjp.createToken(numberElement).then((response) => {
       if (response.error) {
-        alert(response.error.message);
-      } else {
-        const token = response.id;
-        form.insertAdjacentHTML("beforeend", `<input type="hidden" name="token" value="${token}">`);
-        numberElement.clear();
-        expiryElement.clear();
-        cvcElement.clear();
         form.submit();
+        return;
       }
-    });
+      const token = response.id;
+      form.insertAdjacentHTML("beforeend", `<input type="hidden" name="token" value="${token}">`);
+      numberElement.clear();
+      expiryElement.clear();
+      cvcElement.clear();
+      form.submit();
+      }
+    );
   });
 };
 
