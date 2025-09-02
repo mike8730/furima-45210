@@ -12,23 +12,29 @@ const pay = () => {
   cvcElement.mount('#cvc-form');
 
   const form = document.getElementById('charge-form');
+
   form.addEventListener('submit', (e) => {
-    e.preventDefault();
+    e.preventDefault(); // 通常送信を防ぐ
+
     payjp.createToken(numberElement).then((response) => {
       if (response.error) {
-        form.submit();
-        return;
+        // token は作らず、そのまま送信 → Rails 側でバリデーション
+        console.log('カード情報にエラーがあります:', response.error.message);
+      } else {
+        // トークン生成成功時のみ hidden input を追加
+        const token = response.id;
+        form.insertAdjacentHTML(
+          'beforeend',
+          `<input type="hidden" name="token" value="${token}">`
+        );
       }
-      const token = response.id;
-      form.insertAdjacentHTML("beforeend", `<input type="hidden" name="token" value="${token}">`);
-      numberElement.clear();
-      expiryElement.clear();
-      cvcElement.clear();
+
+      // token があってもなくても送信 → Rails 側でエラー表示可能
       form.submit();
-      }
-    );
+    });
   });
 };
 
-window.addEventListener("turbo:load", pay);
-window.addEventListener("turbo:render", pay);
+// Turbo 対応：ページ読み込み時および再描画時に呼び出す
+window.addEventListener('turbo:load', pay);
+window.addEventListener('turbo:render', pay);

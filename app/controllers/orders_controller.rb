@@ -15,6 +15,7 @@ class OrdersController < ApplicationController
       @order_shipping.save
       redirect_to root_path, notice: "購入が完了しました"
     else
+      gon.public_key = ENV['PAYJP_PUBLIC_KEY'] 
       render :index, status: :unprocessable_entity
     end
   end
